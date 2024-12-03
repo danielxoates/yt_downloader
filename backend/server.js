@@ -12,7 +12,7 @@ var router = express.Router();
 const downloadsDir = path.join(os.homedir(), 'Downloads'); // Downloads folder path
 router.get('/', async function (req, res) {
     console.log('router called');
-    let url = "https://youtu.be/2ydCvkxuNm4?feature=shared";
+    let url = req.query.url;
     try{
         console.log('starting');
         const info = await ytdl.getInfo(url);

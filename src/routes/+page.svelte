@@ -17,7 +17,7 @@
             return;
         }
         
-        fetch('http://localhost:2222', {
+        fetch('http://localhost:2222?url='+URL, {
             method: 'GET',
         })
         .then((response) => {
@@ -61,16 +61,18 @@
         placeholder="Enter a URL" 
         class="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
-
+</div>
+<div class="w-full">
+    <Button class="bg-blue-500">
+        <p class="text-black">{fileType || 'Select File Type'}</p>
+        <ChevronDownOutline class="w-6 h-6 ms-2 text-black dark:text-white" />
+    </Button>
     <Dropdown>
-        <Button class="w-full text-left">
-            <span>{fileType || 'Select File Type'}</span>
-            <ChevronDownOutline class="w-6 h-6 inline-block" />
-        </Button>
         <DropdownItem on:click={() => fileType = 'MP3'}>MP3</DropdownItem>
         <DropdownItem on:click={() => fileType = 'MP4'}>MP4</DropdownItem>
     </Dropdown>
-
+</div>
+<div>
     <Button on:click={download} class="w-full bg-blue-500 text-white">Download</Button>
 </div>
 
