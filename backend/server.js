@@ -17,10 +17,11 @@ router.get('/', async function (req, res) {
         console.log('starting');
         const info = await ytdl.getInfo(url);
         let title = info.videoDetails.title;
-        const filePath = path.join(downloadsDir, `${title}.mp4`);
+        const filePath = path.join(downloadsDir, `${title}.mp3`);
         console.log(title);
-        const videoStream = ytdl(url,
-            {requestOptions: {
+        const videoStream = ytdl(url,{
+            filter: 'audioonly',
+            requestOptions: {
                 headers: {
                     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
                     'Accept-Language': 'en-US,en;q=0.9',
