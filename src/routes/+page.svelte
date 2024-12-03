@@ -1,45 +1,77 @@
 <script>
-    
     import { Button, Dropdown, DropdownItem, Alert } from 'flowbite-svelte';
     import { ChevronDownOutline } from 'flowbite-svelte-icons';
-    let URL = $state('');
-    let fileType = $state('');
-    let showAlert = $state(false);
-    let error = $state('');
-    function download(){
-        if (URL == ''){
-            showAlert = true;
-            error = 'URL cannot be empty'
-            return
+
+    let URL = '';
+    let fileType = '';
+    let showAlert = false;
+    let error = '';
+
+    function download() {
+        if (URL === '') {
+            showError('URL cannot be empty');
+            return;
         }
-        if (fileType == ''){
-            showAlert = true;
-            error = 'File type cannot be empty'
-            return
+        if (fileType === '') {
+            showError('File type cannot be empty');
+            return;
         }
-    };
+        
+        fetch('http://localhost:2222', {
+            method: 'GET',
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Failed to download');
+            }
+            return response.json();
+        })
+        .then((json) => console.log(json))
+        .catch((err) => {
+            showError('Download failed. Please try again.');
+            console.error(err);
+        });
+    }
+
+    /**
+   * @param {string} message
+   */
+    function showError(message) {
+        error = message;
+        showAlert = true;
+    }
+
     const closeAlert = () => {
-    showAlert = false;
+        showAlert = false;
+        error = ''; // Reset the error message when alert closes
     };
 </script>
 
 <h1 class="text-2xl font-bold">YouTube Downloader</h1>
+
 {#if showAlert}
   <Alert color="red" on:close={closeAlert}>
     <span class="font-medium">Error:</span> {error}
-    <button onclick={closeAlert} class="btn btn-danger ml-2">
-        Close
-    </button>
   </Alert>
 {/if}
-<div>
-    <input bind:value={URL} placeholder="Enter a URL" class="border border-gray-300 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-500"/>
-    <Button class="text-black">File Type<ChevronDownOutline class="w-6 h-6 ms-2 text-black" /></Button>
+
+<div class="space-y-4">
+    <input 
+        bind:value={URL} 
+        placeholder="Enter a URL" 
+        class="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
     <Dropdown>
-        <DropdownItem onclick={() => fileType='MP3'}>MP3</DropdownItem>
-        <DropdownItem onclick={() => fileType='MP4'}>MP4</DropdownItem>
+        <Button class="w-full text-left">
+            <span>{fileType || 'Select File Type'}</span>
+            <ChevronDownOutline class="w-6 h-6 inline-block" />
+        </Button>
+        <DropdownItem on:click={() => fileType = 'MP3'}>MP3</DropdownItem>
+        <DropdownItem on:click={() => fileType = 'MP4'}>MP4</DropdownItem>
     </Dropdown>
-    <button onclick={download} >Download</button>
+
+    <Button on:click={download} class="w-full bg-blue-500 text-white">Download</Button>
 </div>
 
-<p>URL: {URL || 'none'}, file type: {fileType || 'none'}</p>
+<p>URL: {URL || 'none'}, File Type: {fileType || 'none'}</p>
