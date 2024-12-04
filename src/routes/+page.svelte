@@ -6,6 +6,7 @@
     let fileType = '';
     let showAlert = false;
     let error = '';
+    let showSuccess = false;
 
     function download() {
         if (URL === '') {
@@ -16,21 +17,42 @@
             showError('File type cannot be empty');
             return;
         }
-        
-        fetch('http://localhost:2222?url='+URL, {
-            method: 'GET',
-        })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Failed to download');
-            }
-            return response.json();
-        })
-        .then((json) => console.log(json))
-        .catch((err) => {
-            showError('Download failed. Please try again.');
-            console.error(err);
-        });
+        if (fileType == 'mp3') {
+            fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
+                method: 'GET',
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    showError('Download failed. Please try again.');
+                    throw new Error('Failed to download');
+                }
+                else {
+                    Success();
+                }
+            })
+            .catch((err) => {
+                showError('Download failed. Please try again.');
+                console.error(err);
+            });
+        }
+        if (fileType == 'mp4') {
+            fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
+                method: 'GET',
+            })
+            .then((response) => {
+                if (!response.ok) {
+                    showError('Download failed. Please try again.');
+                    throw new Error('Failed to download');
+                }
+                else {
+                    Success();
+                }
+            })
+            .catch((err) => {
+                showError('Download failed. Please try again.');
+                console.error(err);
+            });
+        }
     }
 
     /**
@@ -40,9 +62,12 @@
         error = message;
         showAlert = true;
     }
-
+    function Success() {
+        showSuccess = true;
+    }
     const closeAlert = () => {
         showAlert = false;
+        showSuccess = false;
         error = ''; // Reset the error message when alert closes
     };
 </script>
@@ -52,6 +77,13 @@
 {#if showAlert}
   <Alert color="red" on:close={closeAlert}>
     <span class="font-medium">Error:</span> {error}
+    <button on:click={closeAlert}>X</button>
+  </Alert>
+{/if}
+{#if showSuccess}
+  <Alert color="green" on:close={closeAlert}>
+    <span class="font-medium">Download success</span>
+    <button on:click={closeAlert}>X</button>
   </Alert>
 {/if}
 
@@ -68,8 +100,8 @@
         <ChevronDownOutline class="w-6 h-6 ms-2 text-black dark:text-white" />
     </Button>
     <Dropdown>
-        <DropdownItem on:click={() => fileType = 'MP3'}>MP3</DropdownItem>
-        <DropdownItem on:click={() => fileType = 'MP4'}>MP4</DropdownItem>
+        <DropdownItem on:click={() => fileType = 'mp3'}>MP3</DropdownItem>
+        <DropdownItem on:click={() => fileType = 'mp4'}>MP4</DropdownItem>
     </Dropdown>
 </div>
 <div>
