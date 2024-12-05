@@ -71,41 +71,61 @@
         error = ''; // Reset the error message when alert closes
     };
 </script>
-
-<h1 class="text-2xl font-bold">YouTube Downloader</h1>
-
-{#if showAlert}
-  <Alert color="red" on:close={closeAlert}>
-    <span class="font-medium">Error:</span> {error}
-    <button on:click={closeAlert}>X</button>
-  </Alert>
-{/if}
-{#if showSuccess}
-  <Alert color="green" on:close={closeAlert}>
-    <span class="font-medium">Download success</span>
-    <button on:click={closeAlert}>X</button>
-  </Alert>
-{/if}
-
-<div class="space-y-4">
+  
+  <h1 class="text-3xl font-bold text-center mt-8">YouTube Downloader</h1>
+  
+  {#if showAlert}
+    <div class="alert alert-red flex items-center justify-between p-4 border border-red-300 rounded-lg bg-red-100 text-red-800">
+      <span class="font-medium">Error:</span> {error}
+      <button on:click={closeAlert} class="text-red-800 hover:text-red-600 font-bold">X</button>
+    </div>
+  {/if}
+  {#if showSuccess}
+    <div class="alert alert-green flex items-center justify-between p-4 border border-green-300 rounded-lg bg-green-100 text-green-800">
+      <span class="font-medium">Download success!</span>
+      <button on:click={closeAlert} class="text-green-800 hover:text-green-600 font-bold">X</button>
+    </div>
+  {/if}
+  
+  <div class="max-w-md mx-auto mt-6 space-y-4">
     <input 
-        bind:value={URL} 
-        placeholder="Enter a URL" 
-        class="border border-gray-300 rounded-lg p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+      bind:value={URL} 
+      placeholder="Enter a URL" 
+      class="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
-</div>
-<div class="w-full">
-    <Button class="bg-blue-500">
-        <p class="text-black">{fileType || 'Select File Type'}</p>
-        <ChevronDownOutline class="w-6 h-6 ms-2 text-black dark:text-white" />
+  
+    <div class="relative">
+      <Button class="bg-blue-500 flex items-center justify-between w-full text-white p-3 rounded-lg hover:bg-blue-600">
+        <p>{fileType || 'Select File Type'}</p>
+        <ChevronDownOutline class="w-6 h-6 ms-2" />
+      </Button>
+      <Dropdown class="rounded border border-gray-500">
+        <DropdownItem on:click={() => fileType = 'mp3'} class="p-3 hover:bg-gray-100">MP3</DropdownItem>
+        <DropdownItem on:click={() => fileType = 'mp4'} class="p-3 hover:bg-gray-100">MP4</DropdownItem>
+      </Dropdown>
+    </div>
+  
+    <Button on:click={download} class="w-full bg-blue-500 p-3 rounded-lg text-white hover:bg-blue-600">
+      Download
     </Button>
-    <Dropdown>
-        <DropdownItem on:click={() => fileType = 'mp3'}>MP3</DropdownItem>
-        <DropdownItem on:click={() => fileType = 'mp4'}>MP4</DropdownItem>
-    </Dropdown>
-</div>
-<div>
-    <Button on:click={download} class="w-full bg-blue-500 text-white">Download</Button>
-</div>
+  </div>
+  
+  <p class="text-center mt-6 text-gray-500">URL: {URL || 'none'}, File Type: {fileType || 'none'}</p>
 
-<p>URL: {URL || 'none'}, File Type: {fileType || 'none'}</p>
+  <style>
+    .alert {
+      animation: fadeIn 0.3s ease-out;
+    }
+  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+  
