@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 const cors = require('cors');
+const proxyAgent = require('https-proxy-agent');
 const { exec } = require('child_process');
 const { stdout, stderr } = require('process');
 
@@ -24,6 +25,7 @@ router.get('/', async function (req, res) {
 
     try{
         console.log('starting');
+        const agent = new proxyAgent('https://13.59.156.167:3128');
         const info = await ytdl.getInfo(url);
         let title = info.videoDetails.title;
         fileName = title;
@@ -34,6 +36,7 @@ router.get('/', async function (req, res) {
             const videoStream = ytdl(url,{
                 filter: 'audioonly',
                 requestOptions: {
+                    agent,
                     headers: {
                         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.82 Safari/537.36',
                         'Accept-Language': 'en-US,en;q=0.9',
