@@ -10,7 +10,7 @@ const cors = require('cors');
 const { exec } = require('child_process');
 const { stdout, stderr } = require('process');
 
-app.use(cors({ origin: 'http://localhost:5173' }));
+app.use(cors({ origin: '*' }));
 var router = express.Router();
 const downloadsDir = path.join(os.homedir(), 'Downloads'); 
 
