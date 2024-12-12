@@ -111,6 +111,10 @@
   </div>
   
   <p class="text-center mt-6 text-gray-500">URL: {URL || 'none'}, File Type: {fileType || 'none'}</p>
+  <p class="text-center mt-6 text-gray-500">Due to YouTube's new ad blocking updates, the node backend responsible
+    for downloading and saving the video will now have to be downloaded and hosted on your local machine.
+  </p>
+  <p class="text-center mt-6 text-gray-500">A link to instructions and the backend code can be found <a class="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href="https://github.com/danielxoates/yt_downloader">here</a></p>
 
   <style>
     .alert {

@@ -1,38 +1,70 @@
-# sv
+# Setting Up and Running the Node.js Backend
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+## Prerequisites
 
-## Creating a project
+1. **Install Node.js**
+   - Download and install Node.js from the [official website](https://nodejs.org/):
+     - For Windows and macOS, download the installer and follow the installation instructions.
+     - For Linux:
+       ```bash
+       # Debian/Ubuntu
+       sudo apt update
+       sudo apt install -y nodejs npm
 
-If you're seeing this, you've probably already done this step. Congrats!
+       # Or use Node Version Manager (NVM)
+       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh | bash
+       source ~/.bashrc
+       nvm install --lts
+       ```
 
-```bash
-# create a new project in the current directory
-npx sv create
+2. **Verify Installation**
+   - Check if Node.js and npm are installed correctly:
+     ```bash
+     node -v   # Should output the Node.js version
+     npm -v    # Should output the npm version
+     ```
 
-# create a new project in my-app
-npx sv create my-app
-```
+## Setting Up the Backend
 
-## Developing
+1. **Download the Code**
+   - Clone the repository:
+     ```bash
+     git clone https://github.com/danielxoates/yt_downloader.git
+     ```
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+2. **Navigate to the Project Directory**
+   ```bash
+   cd backend
+   ```
 
-```bash
-npm run dev
+3. **Install Dependencies**
+   - Run the following command to install all necessary Node.js packages:
+     ```bash
+     npm install
+     ```
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
+---
 
-## Building
+## Running the Backend
 
-To create a production version of your app:
+1. **Start the Server**
+   - Use the following command to start the backend server:
+     ```bash
+     node backend/server.js
+     ```
 
-```bash
-npm run build
-```
+2. **Verify the Server is Running**
+   - The server should display a message like:
+     ```
+     listening on 2222
+     ```
+   - By default, it runs on `http://localhost:2222`.
 
-You can preview the production build with `npm run preview`.
+3. **Access the API**
+   - Test the backend by sending requests to the appropriate endpoints (e.g., `http://localhost:2222/?url=<your-url>&type=<mp3/mp4>`).
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+   This should now allow you to download YouTube videos or audio either from the frontend hosted website or through Postman.
+
+---
+
+
