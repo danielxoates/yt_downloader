@@ -20,7 +20,7 @@
         }
         if (fileType == 'mp3') {
             Start();
-            fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
+            fetch('/api?url='+URL+'&type='+fileType, {
                 method: 'GET',
             })
             .then((response) => {
@@ -39,7 +39,7 @@
         }
         if (fileType == 'mp4') {
             Start();
-            fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
+            fetch('/api?url='+URL+'&type='+fileType, {
                 method: 'GET',
             })
             .then((response) => {
