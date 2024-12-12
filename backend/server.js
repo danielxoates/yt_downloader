@@ -9,7 +9,7 @@ const os = require('os');
 const cors = require('cors');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const { exec } = require('child_process');
-const { stdout, stderr } = require('process');
+
 
 app.use(cors({ origin: '*' }));
 var router = express.Router();
@@ -155,7 +155,7 @@ router.get('/', async function (req, res) {
     } catch (err) {
         console.error('Unexpected error:', err);
         if (!res.headersSent) {
-            res.status(500).send('An unexpected error occurred');
+            res.status(500).send('An unexpected error occurred', errß);
         }
     }
     
