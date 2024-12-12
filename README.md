@@ -1,7 +1,5 @@
 # Svelte & Bun Application Setup
 
-This guide will walk you through the process of cloning, installing, and running a **Svelte** application with **Bun** from GitHub.
-
 ## Prerequisites
 
 Before setting up the project, make sure you have the following installed on your machine:
