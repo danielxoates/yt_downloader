@@ -7,6 +7,7 @@
     let showAlert = false;
     let error = '';
     let showSuccess = false;
+    let showStart = false;
 
     function download() {
         if (URL === '') {
@@ -18,6 +19,7 @@
             return;
         }
         if (fileType == 'mp3') {
+            Start();
             fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
                 method: 'GET',
             })
@@ -36,6 +38,7 @@
             });
         }
         if (fileType == 'mp4') {
+            Start();
             fetch('http://localhost:2222?url='+URL+'&type='+fileType, {
                 method: 'GET',
             })
@@ -65,9 +68,13 @@
     function Success() {
         showSuccess = true;
     }
+    function Start() {
+        showStart = true;
+    }
     const closeAlert = () => {
         showAlert = false;
         showSuccess = false;
+        showStart = false;
         error = ''; // Reset the error message when alert closes
     };
 </script>
@@ -86,6 +93,12 @@
       <button on:click={closeAlert} class="text-green-800 hover:text-green-600 font-bold">X</button>
     </div>
   {/if}
+  {#if showStart}
+    <div class="alert alert-green flex items-center justify-between p-4 border border-grey-300 rounded-lg bg-grey-100 text-grey-800">
+        <span class="font-medium">Download started!</span>
+        <button on:click={closeAlert} class="text-grey-800 hover:text-grey-600 font-bold">X</button>
+    </div>
+   {/if}
   
   <div class="max-w-md mx-auto mt-6 space-y-4">
     <input 
