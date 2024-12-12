@@ -1,3 +1,24 @@
+# Svelte & Bun Application Setup
+
+This guide will walk you through the process of cloning, installing, and running a **Svelte** application with **Bun** from GitHub.
+
+## Prerequisites
+
+Before setting up the project, make sure you have the following installed on your machine:
+
+1. **Bun**: A fast JavaScript runtime like Node.js, but optimized for performance.
+2. **Svelte**
+
+## Clone the repo
+
+```bash
+    git clone https://github.com/danielxoates/yt_downloader.git
+```
+You can then run the frontend using the command
+```bash
+    bun dev
+```
+
 # Setting Up and Running the Node.js Backend
 
 ## Prerequisites
