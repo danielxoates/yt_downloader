@@ -1,5 +1,7 @@
 # Svelte & Bun Application Setup
 
+Due to new YouTube ad blocking restrictions this application only works when self hosted. Instructions to do this are outlined below.
+
 ## Prerequisites
 
 Before setting up the project, make sure you have the following installed on your machine:
